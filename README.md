@@ -1,29 +1,21 @@
-# Job Scam Detection AI: Predictive Modeling for the EMSCAD Dataset
+# Exploratory Job Scam Analysis: The EMSCAD Dataset
 
 ## Project Overview
-This project addresses the growing problem of fraudulent job postings using machine learning. Rather than relying solely on text analysis, this pipeline utilizes Adversarial EDA to identify "Trust Gaps"—behavioral red flags left by scammers, such as the intentional omission of corporate metadata.
+This repository contains an exploratory data analysis (EDA) of the EMSCAD dataset to identify patterns in fraudulent job postings. The analysis focuses on how missing information and specific structural markers distinguish scams from legitimate employment opportunities.
 
-In this dataset, we observed that the absence of a company profile or logo correlates with a 15x increase in the probability of fraud.
+Key findings indicate that the absence of a company profile or brand logo is a strong indicator of fraud, correlating with a 15-fold increase in the probability of a posting being fraudulent.
 
-## Key Features
-* Trust-Signal Engineering: Beyond standard NLP, the model evaluates "The Professionalism Paradox," checking for the presence of logos, profiles, and informal tone markers (sentiment/subjectivity).
-* Imbalance Management: Implements Stratified K-Fold Cross-Validation and class_weight='balanced' to ensure high recall for the 4.8% minority (fraud) class without resorting to synthetic oversampling (SMOTE), which can distort text data.
-* Multi-Model Benchmarking: Compares four distinct architectures:
-    * Decision Trees: For baseline interpretability.
-    * Linear SVM: For high-dimensional text efficiency.
-    * XGBoost: For capturing complex feature interactions.
-    * TabNet: For non-linear deep learning on tabular data.
+## Key Insights from EDA
+* **Missing Metadata Analysis:** Investigation of how the absence of logos and company profiles serves as a primary indicator of non-legitimate postings.
+* **Information Gaps as Signals:** Analysis of missing values (NaNs) not as data errors, but as behavioral markers in scammer postings.
+* **Targeting Patterns:** Observations on how fraudulent posts often target Entry-Level roles and frequently omit specific employment type details.
+* **Tone and Subjectivity:** Examining how informal language or high subjectivity in job descriptions relates to the authenticity of the post.
 
-## Exploratory Data Analysis (EDA)
-Our EDA revealed that "missingness" is a primary feature. We categorized NaN values as "Not Specified" rather than dropping them, allowing the model to learn from the "Laziness Signal."
-
-* Experience & Employment: Scammers disproportionately target Entry-Level roles and frequently omit employment type details to cast a wider net.
-* Metadata Correlation: High-risk postings often lack both a brand logo and a company profile. A custom "Suspicion Score" was developed to quantify this risk staircase.
-
-## Technical Pipeline
-1. Preprocessing: A ColumnTransformer handles hybrid inputs—TfidfVectorizer for text descriptions and OneHotEncoder for categorical metadata.
-2. Hyperparameter Tuning: Automated via GridSearchCV (using StratifiedKFold) to optimize parameters like scale_pos_weight and tree depth.
-3. Evaluation: Metrics focused on Recall and F1-Score to prioritize catching scams while maintaining reasonable precision.
+## Technical Methodology
+* **Dimensionality Reduction:** Utilizing UMAP (Uniform Manifold Approximation and Projection) to cluster and visualize high-dimensional text data.
+* **Text Vectorization:** Using TF-IDF to extract and compare the importance of specific terms used in fraudulent vs. legitimate postings.
+* **Feature Relationship Mapping:** Analyzing the cumulative risk when multiple fields (profile, logo, and requirements) are left blank simultaneously.
+* **Data Visualization:** Using Seaborn and Matplotlib to illustrate the distribution of fraud across different categories and levels of missing information.
 
 ## Installation & Usage
 ```bash
